@@ -10,6 +10,10 @@
 
 
 Android APP Security
+
+
+
+
 -reverse engineering : used ProGuard
 -Encryption & Decryption by Keystore 
 -disable screenshots system (Flag Secure Layout)
