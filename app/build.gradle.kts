@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
-
+    implementation("androidx.compose.material3:material3-window-size-class")
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
