@@ -38,10 +38,11 @@ import com.example.marvel_app.core.common.CoilImage
 import com.example.marvel_app.core.resources.BlackTransparent
 import com.example.marvel_app.core.resources.MovieDetailsTextColor
 import com.example.marvel_app.core.resources.MoviePrimaryBackgroundColor
+import com.example.marvel_app.data.responeses.Competitions
 import com.example.marvel_app.presentation.home.MarvelGridList
 
 @Composable
-fun DetailsScreen(navController: NavController, id: String?, viewModel: DetailsViewModel = hiltViewModel(),modifier: Modifier = Modifier){
+fun DetailsScreen(navController: NavController, data: Competitions?, viewModel: DetailsViewModel = hiltViewModel(), modifier: Modifier = Modifier){
 
         Column(
             modifier = Modifier
@@ -50,33 +51,44 @@ fun DetailsScreen(navController: NavController, id: String?, viewModel: DetailsV
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-//            when (result) {
-//                is NetworkResult.Initial -> {
-//                  viewModel.getCharacters_Details(id.toString())
-//                }
-//
-//                is NetworkResult.Success -> {
-////                    DetailsSuccess(result.data?.data?.results!!.first())
-//
-//                }
-//
-//                is NetworkResult.Loading -> {
-//                    Box(modifier.fillMaxSize()) {
-//                        CircularProgressIndicator(
-//
-//                            modifier = Modifier
-//                                .align(Alignment.Center)
-//                                .padding(top = 24.dp)
-//                        )
-//                    }
-//                }
-//
-//                is NetworkResult.Error -> {
-//                    Text(text = "Error: ")
-//                }
-//            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(320.dp)
+            ) {
+                CoilImage(
+                    imageUrl = "${data?.emblem}",
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    BlackTransparent,
+                                    MoviePrimaryBackgroundColor
+                                )
+                            )
+                        )
+                )
+
+
+            }
+            InfoItem(
+                title = data?.name.toString(),
+                subtitle = data?.area?.name.toString(),
+                body = data?.plan.toString(),
+                modifier = Modifier.padding(top = 0.dp, start = 16.dp, end = 16.dp)
+            )
 
         }
+
+
+
 
 }
 
@@ -155,7 +167,7 @@ fun DetailsScreen(navController: NavController, id: String?, viewModel: DetailsV
 
 
 @Composable
-fun InfoItem(title: String, subtitle: String, modifier: Modifier = Modifier) {
+fun InfoItem(title: String, subtitle: String,body:String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
     ) {
@@ -174,5 +186,12 @@ fun InfoItem(title: String, subtitle: String, modifier: Modifier = Modifier) {
                 color = Color.White,
             )
         }
+
+        Text(
+            text = body,
+            style = MaterialTheme.typography.bodyMedium,
+            fontSize = 16.sp,
+            color = Color.White,
+        )
     }
 }

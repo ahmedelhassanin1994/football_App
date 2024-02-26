@@ -6,7 +6,7 @@ import com.example.marvel_app.core.getHash
 import com.example.marvel_app.data.network.Api
 import com.example.marvel_app.data.responeses.CompetitionsResponse
 import javax.inject.Inject
-
+import com.example.marvel_app.BuildConfig
 interface RemoteDataSource {
 
     suspend fun getCompetitions(): CompetitionsResponse
@@ -23,11 +23,8 @@ constructor(
 
 ) : RemoteDataSource {
     override suspend fun getCompetitions(): CompetitionsResponse {
-        Log.d("RemoteDataSource", "getCompetitions:")
-
-        val data=api.getCompetitions()
-        Log.d("RemoteDataSource", "getCompetitions:")
-
+        val key=BuildConfig.Api_KEY
+        val data=api.getCompetitions(key)
         return  data
     }
 

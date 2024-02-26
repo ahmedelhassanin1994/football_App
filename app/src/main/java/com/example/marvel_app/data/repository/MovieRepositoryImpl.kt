@@ -1,8 +1,11 @@
 package com.example.marvel_app.data.repository
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import arrow.core.Either
 import com.example.marvel_app.core.BaseApplication
+import com.example.marvel_app.core.CryptoData
 import com.example.marvel_app.core.Network
 import com.example.marvel_app.data.data_source.RemoteDataSource
 import com.example.marvel_app.data.data_source.localDataSource.LocalDataSource
@@ -14,6 +17,7 @@ import com.example.marvel_app.data.responeses.CompetitionsResponse
 import com.example.marvel_app.domain.entities.CharactersCache
 import com.example.marvel_app.domain.repository.Repository
 import com.google.gson.Gson
+import java.util.Base64
 import javax.inject.Inject
 class MovieRepositoryImpl
 @Inject
@@ -21,6 +25,7 @@ constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): Repository {
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getCompetitions(): Either<Failure, CompetitionsResponse> {
         if (Network.checkConnectivity(BaseApplication.applicationContext())) {
 
@@ -31,9 +36,12 @@ constructor(
                 if (response !=null){
                     val gson = Gson()
                     val json = gson.toJson(response)
+                    val bytes = json.toString().toByteArray()
+                    val cryptoData = CryptoData()
+                     val  data= Base64.getEncoder().encodeToString(cryptoData.encrypt(bytes = bytes))
+                    Log.d("Repository", "getCompetitions: $data")
 
-
-                    localDataSource.insert(CharactersCache(key = "Characters", date = "${json}"))
+                    localDataSource.insert(CharactersCache(key = "Characters", date = "${data}"))
                     return Either.Right(response)
                 }else{
 
@@ -49,11 +57,12 @@ constructor(
 
             try {
                 val data_characters=localDataSource.getCharacters()
-                Log.d("MovieRepositoryImpl", "${data_characters.last().date} ")
-
+                Log.d("MovieRepositoryImpl", " ${data_characters.last().date} ")
+                val cryptoData = CryptoData()
+                val originalText = cryptoData.decrypt(Base64.getDecoder().decode(data_characters.last().date.toString()))?.decodeToString()
 
                 var gson = Gson()
-                var charactersApiResponse = gson.fromJson(data_characters.last().date, CompetitionsResponse::class.java)
+                var charactersApiResponse = gson.fromJson(originalText, CompetitionsResponse::class.java)
 
 
                 return Either.Right(charactersApiResponse)
