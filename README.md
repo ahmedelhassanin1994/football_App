@@ -21,6 +21,17 @@ This layer contains all the information about the UI and everything to show to t
 ![Clean-Architecture-Flutter-Diagram (1).webp](screenshot%2FClean-Architecture-Flutter-Diagram%20%281%29.webp)
 
 
+## Technologies Used
+
+- Android Studio
+- Kotlin
+- Retrofit for API integration
+- Coil for image loading
+- JetPack Compose
+- Room database
+- hilt
+- navigation-compose
+- arrow
 
 
 # Android APP Security
