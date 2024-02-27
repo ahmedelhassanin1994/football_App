@@ -1,14 +1,15 @@
-package com.example.marvel_app.data.data_source.localDataSource
+package com.example.marvel_app.data.data_source_test.localDataSource
 
 
-import com.example.marvel_app.domain.entities.CharactersCache
+import com.example.marvel_app.domain.entities.CacheModel
+
 import javax.inject.Inject
 
 interface LocalDataSource {
 
-    suspend fun getCharacters(): List<CharactersCache>
-    suspend fun insert(characters : CharactersCache)
-    suspend fun delete(characters : CharactersCache)
+    suspend fun getCache(): List<CacheModel>
+    suspend fun insert(characters : CacheModel)
+    suspend fun delete(characters : CacheModel)
 }
 
 
@@ -19,17 +20,17 @@ constructor(
     private val dao_characters: Dao_Characters
 
 ) : LocalDataSource {
-    override suspend fun getCharacters():List<CharactersCache> {
+    override suspend fun getCache():List<CacheModel> {
 
-        return dao_characters.getAllTask()
+        return dao_characters.getCache()
     }
 
-    override suspend fun insert(characters: CharactersCache) {
-        dao_characters.insertTask(characters)
+    override suspend fun insert(characters: CacheModel) {
+        dao_characters.insertCache(characters)
     }
 
-    override suspend fun delete(characters: CharactersCache) {
-      dao_characters.deleteTask(characters)
+    override suspend fun delete(characters: CacheModel) {
+      dao_characters.deleteCache(characters)
     }
 
 

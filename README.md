@@ -32,6 +32,7 @@ This layer contains all the information about the UI and everything to show to t
 - hilt
 - navigation-compose
 - arrow
+- mockito
 
 
 # Android APP Security

@@ -1,7 +1,5 @@
-package com.example.marvel_app.data.data_source
+package com.example.marvel_app.data.data_source_test
 
-import android.util.Log
-import com.example.marvel_app.core.Constant
 import com.example.marvel_app.data.network.Api
 import com.example.marvel_app.data.responeses.CompetitionsResponse
 import javax.inject.Inject

@@ -3,16 +3,16 @@ package com.example.marvel_app.core.di
 import android.content.Context
 import androidx.room.Room
 import com.example.marvel_app.core.Constant
-import com.example.marvel_app.data.data_source.RemoteDataSource
-import com.example.marvel_app.data.data_source.RemoteDataSourceImplementer
-import com.example.marvel_app.data.data_source.localDataSource.AppDatabase
-import com.example.marvel_app.data.data_source.localDataSource.Dao_Characters
-import com.example.marvel_app.data.data_source.localDataSource.LocalDataSource
-import com.example.marvel_app.data.data_source.localDataSource.LocalDataSourceImplementer
+import com.example.marvel_app.data.data_source_test.RemoteDataSource
+import com.example.marvel_app.data.data_source_test.RemoteDataSourceImplementer
+import com.example.marvel_app.data.data_source_test.localDataSource.AppDatabase
+import com.example.marvel_app.data.data_source_test.localDataSource.Dao_Characters
+import com.example.marvel_app.data.data_source_test.localDataSource.LocalDataSource
+import com.example.marvel_app.data.data_source_test.localDataSource.LocalDataSourceImplementer
 import com.example.marvel_app.data.network.Api
-import com.example.marvel_app.data.repository.MovieRepositoryImpl
+import com.example.marvel_app.data.repository_test.RepositoryImpl
 import com.example.marvel_app.domain.repository.Repository
-import com.example.marvel_app.domain.usecase.Characters_UseCase
+import com.example.marvel_app.domain.usecase.Competition_UseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -83,13 +83,13 @@ object AppModule {
     fun provideMovieRepository(
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource
-    ) = MovieRepositoryImpl(remoteDataSource,localDataSource) as Repository
+    ) = RepositoryImpl(remoteDataSource,localDataSource) as Repository
 
     @Singleton
     @Provides
     fun provide_Usecase(
         repository: Repository
-    ) = Characters_UseCase(repository)
+    ) = Competition_UseCase(repository)
 
 
 }

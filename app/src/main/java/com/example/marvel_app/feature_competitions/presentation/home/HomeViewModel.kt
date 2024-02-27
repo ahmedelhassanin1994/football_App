@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvel_app.core.NetworkResult
 import com.example.marvel_app.data.responeses.Competitions
 import com.example.marvel_app.data.responeses.CompetitionsResponse
-import com.example.marvel_app.domain.usecase.Characters_UseCase
+import com.example.marvel_app.domain.usecase.Competition_UseCase
 import com.example.marvel_app.domain.usecase.InputData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel  @Inject constructor(private val charactersUsecase: Characters_UseCase): ViewModel() {
+class HomeViewModel  @Inject constructor(private val competitionUsecase: Competition_UseCase): ViewModel() {
     val result = MutableStateFlow<NetworkResult<CompetitionsResponse>>(NetworkResult.Initial())
     var list_search: List<Competitions> = listOf()
 
@@ -24,15 +24,12 @@ class HomeViewModel  @Inject constructor(private val charactersUsecase: Characte
         getCharacters()
     }
      fun getCharacters() {
-         Log.d("HomeViewModel", "getCharacters: ")
 
          result.value = NetworkResult.Loading()
         viewModelScope.launch {
-            charactersUsecase.execute(InputData()).fold(
+            competitionUsecase.execute(InputData()).fold(
                 {
                     result.value = NetworkResult.Error(it.message)
-                    Log.d("HomeViewModel", "getCharacters: ${it.code}")
-
                 },{
                     result.value = NetworkResult.Success(it)
 //                    result.value.data?.data?.results=list

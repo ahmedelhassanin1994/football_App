@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "characters_cache")
-data class CharactersCache(
+data class CacheModel(
     @PrimaryKey(autoGenerate = true)
     val taskId: Int? = 0,
     val key: String,

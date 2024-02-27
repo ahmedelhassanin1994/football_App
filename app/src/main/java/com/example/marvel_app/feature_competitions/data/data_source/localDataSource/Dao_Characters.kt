@@ -1,25 +1,24 @@
-package com.example.marvel_app.data.data_source.localDataSource
+package com.example.marvel_app.data.data_source_test.localDataSource
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.RoomWarnings
-import com.example.marvel_app.domain.entities.CharactersCache
+import com.example.marvel_app.domain.entities.CacheModel
 
 
 @Dao
 interface Dao_Characters {
 
     @Query("SELECT * FROM characters_cache")
-    suspend fun getAllTask(): List<CharactersCache>
+    suspend fun getCache(): List<CacheModel>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTask(task: CharactersCache)
+    suspend fun insertCache(task: CacheModel)
 
     @Delete
-    suspend fun deleteTask(task: CharactersCache)
+    suspend fun deleteCache(task: CacheModel)
 
 }
